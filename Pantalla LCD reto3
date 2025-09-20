@@ -1,0 +1,31 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+// Cambia la dirección a 0x3F si tu módulo la usa
+LiquidCrystal_I2C lcd(0x27,16,2);
+
+void setup() {
+  lcd.init();        // Inicializar el LCD
+  lcd.backlight();   // Encender la luz de fondo
+}
+
+void loop() {
+  int sen1 = analogRead(A0);
+  float sen2 = sen1 * (5.0 / 1023.0);
+
+  // Mostrar ADC
+  lcd.setCursor(0,0);
+  lcd.print("ADC:");
+  lcd.print("    "); // borrar antes
+  lcd.setCursor(4,0);
+  lcd.print(sen1);
+
+  // Mostrar Voltaje
+  lcd.setCursor(10,0);
+  lcd.print("V: ");
+  lcd.print("    "); // borrar antes
+  lcd.setCursor(13,0);
+  lcd.print(sen2,1); // 1 decimal
+
+  delay(200);
+}
